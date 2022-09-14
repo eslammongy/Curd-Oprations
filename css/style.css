@@ -63,3 +63,9 @@ button:focus {
     box-shadow: none !important;
     outline-width: 0
 }
+
+.message{
+    text-align: center;
+    background-color: orange;
+    color: white;
+}
