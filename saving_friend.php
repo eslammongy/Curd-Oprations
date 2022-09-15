@@ -6,20 +6,20 @@ include('./config/config.php');
 $errors_array = [];
 if (isset($_POST['saveFriend'])) {
 
-    if (!isset($_POST['user_name']) && !empty($_POST['user_name'])) {
-        $errors_array[] = "user name";
+    if (isset($_POST['user_name']) && empty($_POST['user_name'])) {
+        $errors_array[] = "userName";
     }
-    if (!isset($_POST['user_phone']) && !empty($_POST['user_phone'])) {
-        $errors_array[] = "user phone";
+    if (isset($_POST['user_phone']) && empty($_POST['user_phone'])) {
+        $errors_array[] = "userPhone";
     }
-    if (!isset($_POST['jop_title']) && !empty($_POST['jop_title'])) {
-        $errors_array[] = "jop title";
+    if (isset($_POST['jop_title']) && empty($_POST['jop_title'])) {
+        $errors_array[] = "jopTitle";
     }
-    if (!isset($_POST['about_friend']) && !empty($_POST['about_friend'])) {
-        $errors_array[] = "about friend";
+    if (isset($_POST['about_friend']) && empty($_POST['about_friend'])) {
+        $errors_array[] = "aboutFriend";
     }
     if (!isset($_POST['email']) && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-        $errors_array[] = "user email";
+        $errors_array[] = "userEemail";
     }
 
     if (!$errors_array) {

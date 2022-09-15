@@ -36,28 +36,34 @@ include('./saving_friend.php');
                     <form class="form-card" action="" method="POST" enctype="multipart/form-data">
                         <div class="row justify-content-between text-left">
                             <div class="form-group col-sm-6 flex-column d-flex">
-                                <label class="form-control-label px-3">name<span class="text-danger"> *</span></label>
+                                <label
+                                    class="form-control-label px-3"><?php (in_array("userName", $errors_array)) ?  print "please enter valid user name !" : print "enter name" ?><span
+                                        class="text-danger"> *</span></label>
                                 <input type="text" id="user_name" name="user_name" placeholder="Enter your  name"
-                                    onblur="validate(1)" />
+                                    onblur="validate(1)"
+                                    value="<?php (isset($_POST['user_name'])) ? print $_POST['user_name'] : " "  ?>" />
                             </div>
                             <div class="form-group col-sm-6 flex-column d-flex">
-                                <label class="form-control-label px-3">Phone number<span class="text-danger">
+                                <label
+                                    class="form-control-label px-3"><?php (in_array("userPhone", $errors_array)) ?  print "please enter valid phone number !" : print "enter phone" ?><span
+                                        class="text-danger">
                                         *</span></label>
-                                <input type="text" id="user_phone" name="user_phone" placeholder=""
-                                    onblur="validate(4)" />
+                                <input type="text" id="user_phone" name="user_phone" placeholder="" onblur="validate(4)"
+                                    value="<?php (isset($_POST['user_phone'])) ? print $_POST['user_phone'] : " "  ?>" />
                             </div>
                         </div>
                         <div class="row justify-content-between text-left">
                             <div class="form-group col-sm-6 flex-column d-flex">
                                 <label class="form-control-label px-3">Business email<span class="text-danger">
                                         *</span></label>
-                                <input type="text" id="email" name="email" placeholder="" onblur="validate(3)" />
+                                <input type="text" id="email" name="email" placeholder="" onblur="validate(3)"
+                                    value="<?php (isset($_POST['email'])) ? print $_POST['email'] : " "  ?>" />
                             </div>
                             <div class="form-group col-sm-6 flex-column d-flex">
                                 <label class="form-control-label px-3">jop title<span class="text-danger">
                                         *</span></label>
-                                <input type="text" id="jop_title" name="jop_title" placeholder=""
-                                    onblur="validate(5)" />
+                                <input type="text" id="jop_title" name="jop_title" placeholder="" onblur="validate(5)"
+                                    value="<?php (isset($_POST['jop_title'])) ? print $_POST['jop_title'] : " "  ?>" />
                             </div>
                         </div>
                         <div class="row justify-content-between text-left"></div>
@@ -66,7 +72,8 @@ include('./saving_friend.php');
                                 <label class="form-control-label px-3">about your friend<span class="text-danger">
                                         *</span></label>
                                 <input type="text" id="about-friend" name="about_friend" placeholder=""
-                                    onblur="validate(6)" />
+                                    onblur="validate(6)"
+                                    value="<?php (isset($_POST['about_friend'])) ? print $_POST['about_friend'] : " "  ?>" />
                             </div>
                         </div>
                         <div class="row justify-content-between text-left">
