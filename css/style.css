@@ -2,7 +2,6 @@ body {
     color: #000;
     overflow-x: hidden;
     height: 100%;
-    background-image: url("https://i.imgur.com/GMmCQHC.png");
     background-repeat: no-repeat;
     background-size: 100% 100%
 }
@@ -68,4 +67,5 @@ button:focus {
     text-align: center;
     background-color: orange;
     color: white;
+    padding: 20px;
 }
