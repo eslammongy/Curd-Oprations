@@ -1,6 +1,8 @@
 <?php
 
-include('./saving_friend.php');
+include('./controller.php');
+include('./config/config.php');
+saveNewFriend($db_connection);
 
 ?>
 
@@ -24,7 +26,9 @@ include('./saving_friend.php');
     <?php
     if (isset($message)) {
         foreach ($message as $message) {
-            echo '<div class="message"><span>' . $message . '</span> <i class="fas fa-times" onclick="this.parentElement.style.display = `none`;"></i> </div>';
+            echo '<div class="message"><span>' . $message . '</span> <button class="btn-close" onclick="this.parentElement.style.display = `none`;"></button>
+            <button class="btn-goList"> <a href="friendsList.php"> </a></button>
+             </div>';
         }
     };
     ?>
@@ -32,7 +36,9 @@ include('./saving_friend.php');
         <div class="row d-flex justify-content-center">
             <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
                 <div class="card">
-                    <h5 class="text-center mb-4">Saving new friend in your list</h5>
+                    <h5 class="text-center mb-4">Saving new friend in your list <button class="btn-primary"> <a
+                                class="text-decoration-none btn-primary" href="friendsList.php">Go Friends List
+                            </a></button></h5>
                     <form class="form-card" action="" method="POST" enctype="multipart/form-data">
                         <div class="row justify-content-between text-left">
                             <div class="form-group col-sm-6 flex-column d-flex">
@@ -95,33 +101,6 @@ include('./saving_friend.php');
             </div>
         </div>
 
-        <div class="friends-list container-fluid">
-            <h1 class="text-center">Friends List</h1>
-            <div class="row gy-4">
-
-                <?php
-                $selectQuery = "SELECT * FROM users ORDER BY id DESC";
-                $excuteQuery = mysqli_query($db_connection, $selectQuery);
-
-                if (mysqli_num_rows($excuteQuery) > 0) {
-                    while ($row = mysqli_fetch_assoc($excuteQuery)) {
-
-                ?>
-                <div class="col-sm">
-                    <div class="card h-100">
-
-                        <img src="uploaded_images/<?php echo $row['userImage']; ?>" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title fw-bold"><?php echo $row['userName']; ?></h5>
-                            <p class="card-text"><?php echo $row['aboutUser']; ?></p>
-                        </div>
-                    </div>
-                </div>
-
-                <?php } ?>
-                <?php } ?>
-            </div>
-        </div>
     </div>
     <script type="text/javascript" src="./js/validator.js"></script>
     <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js">
