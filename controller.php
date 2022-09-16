@@ -74,3 +74,19 @@ function searchForFriend($db_connection)
     }
     return $searchResult;
 }
+
+function deleteFriend($db_connection)
+{
+
+    if (!$db_connection) {
+        echo mysqli_connect_errno();
+        exit();
+    }
+
+    if (isset($_GET['delete'])) {
+        $deleteID = $_GET['delete'];
+        $searchQuery = "DELETE FROM users WHERE id =$deleteID";
+        mysqli_query($db_connection, $searchQuery);
+        header('location:friendsList.php');
+    }
+}

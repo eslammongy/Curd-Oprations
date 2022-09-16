@@ -3,6 +3,8 @@ include('./controller.php');
 include('./config/config.php');
 
 $friendsList = searchForFriend($db_connection);
+
+deleteFriend($db_connection);
 ?>
 
 <!DOCTYPE html>
@@ -11,6 +13,8 @@ $friendsList = searchForFriend($db_connection);
 <head>
     <title></title>
     <meta charset="UTF-8">
+    <title>Friends List</title>
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/style.css" rel="stylesheet" />
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
@@ -57,6 +61,11 @@ $friendsList = searchForFriend($db_connection);
                         <div class="card-body">
                             <h5 class="card-title fw-bold"><?php echo $row['userName']; ?></h5>
                             <p class="card-text"><?php echo $row['aboutUser']; ?></p>
+                            <a href="friendsList.php?edit=<?php echo $row['id']; ?>"
+                                class="btn btn-primary text-white mt-auto align-self-start">Edit</a>
+                            <a href="friendsList.php?delete=<?php echo $row['id']; ?>"
+                                class="btn btn-danger text-white mt-auto align-self-end"
+                                onclick="return confirm('are you sure you want to delete this product?');">Delete</a>
                         </div>
                     </div>
                 </div>
