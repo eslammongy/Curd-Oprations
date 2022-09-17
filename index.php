@@ -24,9 +24,9 @@ saveNewFriend($db_connection);
 
 <body>
     <?php
-    if (isset($message)) {
-        foreach ($message as $message) {
-            echo '<div class="message"><span>' . $message . '</span> <button class="btn-close" onclick="this.parentElement.style.display = `none`;"></button>
+    if (isset($messages)) {
+        foreach ($messages as $messages) {
+            echo '<div class="mess$messages"><span>' . $messages . '</span> <button class="btn-close" onclick="this.parentElement.style.display = `none`;"></button>
             <button class="btn-goList"> <a href="friendsList.php"> </a></button>
              </div>';
         }

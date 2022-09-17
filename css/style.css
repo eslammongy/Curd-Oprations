@@ -1,3 +1,12 @@
+:root {
+    --black: #333;
+    --white: #fff;
+    --bg-color: #eee;
+    --dark-bg: rgba(0, 0, 0, .7);
+    --box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+    --border: .1rem solid #999;
+}
+
 body {
     color: #000;
     overflow-x: hidden;
@@ -73,4 +82,38 @@ button:focus {
 
 .search-input{
     width: 100% !important;
+}
+
+
+.edit-form-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1100;
+    background-color: var(--dark-bg);
+    padding: 2rem;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.edit-form-container form {
+    width: 50rem;
+    border-radius: .5rem;
+    background-color: var(--white);
+    text-align: center;
+    padding: 1.5rem;
+}
+
+.edit-form-container form .box {
+	width: 100%;
+	background-color: var(--bg-color);
+	border-radius: .5rem;
+	margin: 0.3rem 0;
+	font-size: 1.7rem;
+	color: var(--black);
+	padding: 1.2rem 1.4rem;
+	text-transform: none;
 }

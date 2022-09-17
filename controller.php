@@ -4,6 +4,7 @@ error_reporting(E_ERROR | E_PARSE);
 include('./config/config.php');
 
 $errors_array = [];
+$messages = [];
 
 function saveNewFriend($db_connection)
 {
@@ -66,8 +67,8 @@ function searchForFriend($db_connection)
 
     $searchQuery = "SELECT * FROM users ORDER BY id DESC";
     $searchResult = mysqli_query($db_connection, $searchQuery);
-    if (isset($_GET['submit_search'])) {
-        $searchKey = mysqli_escape_string($db_connection, $_GET['search']);
+    if (isset($_POST['submit_search'])) {
+        $searchKey = mysqli_escape_string($db_connection, $_POST['search']);
         $searchQuery = "SELECT * FROM users WHERE `users`.`userName` LIKE '%" . $searchKey . "%' OR `users`.`userEmail` LIKE '%" . $searchKey . "%' ORDER BY id DESC";
         $searchResult = mysqli_query($db_connection, $searchQuery);
         return $searchResult;
@@ -83,10 +84,43 @@ function deleteFriend($db_connection)
         exit();
     }
 
-    if (isset($_GET['delete'])) {
-        $deleteID = $_GET['delete'];
+    if (isset($_POST['delete'])) {
+        $deleteID = $_POST['delete'];
         $searchQuery = "DELETE FROM users WHERE id =$deleteID";
         mysqli_query($db_connection, $searchQuery);
         header('location:friendsList.php');
+    }
+}
+
+function updateCurrentFriend($db_connection)
+{
+    if (isset($_POST['update_friend'])) {
+
+        if (!$db_connection) {
+            mysqli_connect_errno();
+            exit();
+        }
+        $friendID = $_POST['user_id'];
+        $friendName = mysqli_escape_string($db_connection, $_POST['user_name']);
+        $friendPhone = mysqli_escape_string($db_connection, $_POST['user_phone']);
+        $friendEmail = mysqli_escape_string($db_connection, $_POST['user_email']);
+        $jobTitle = mysqli_escape_string($db_connection, $_POST['job_title']);
+        $aboutFriend = mysqli_escape_string($db_connection, $_POST['user_about']);
+        $proImage = $_FILES['user_image']['name'];
+        $proImageTempName = $_FILES['user_image']['tmp_name'];
+        $proImageFolder = 'uploaded_images/' . $proImage;
+        ///"UPDATE products SET name = '$proNameUp', price = '$proPriceUp', image = '$proImageUp' WHERE id = '$updateID'")
+        $updatingQuery = "UPDATE users SET userName = '$friendName', userEmail = '$friendEmail', userPhone = '$friendPhone', userImage = '$proImage', jobTitle = '$jobTitle', aboutUser= '$aboutFriend' WHERE id = '$friendID'";
+        $updateCurrFriend = mysqli_query($db_connection, $updatingQuery) or die('error occured when adding new product');
+
+        if ($updateCurrFriend) {
+            move_uploaded_file($proImageTempName, $proImageFolder);
+            $message[] = "update selected friend successfully";
+            header('location:friendsList.php');
+        } else {
+            $message[] = "update selected friend successfully";
+            mysqli_close($db_connection);
+            header('location:friendsList.php');
+        }
     }
 }

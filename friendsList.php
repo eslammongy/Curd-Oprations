@@ -5,6 +5,7 @@ include('./config/config.php');
 $friendsList = searchForFriend($db_connection);
 
 deleteFriend($db_connection);
+updateCurrentFriend($db_connection);
 ?>
 
 <!DOCTYPE html>
@@ -23,6 +24,15 @@ deleteFriend($db_connection);
 </head>
 
 <body>
+    <?php
+    if (isset($messages)) {
+        foreach ($messages as $messages) {
+            echo '<div class="me$messages"><span>' . $messages . '</span> <button class="btn-close" onclick="this.parentElement.style.display = `none`;"></button>
+            <button class="btn-goList"> <a href="friendsList.php"> </a></button>
+             </div>';
+        }
+    };
+    ?>
     <div class="container-fluid px-1 py-5 mx-auto">
         <div class="row d-flex justify-content-center">
             <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
@@ -74,6 +84,49 @@ deleteFriend($db_connection);
                 <?php } ?>
             </div>
         </div>
+
+        <section class="edit-form-container">
+
+            <?php
+
+            if (isset($_GET['edit'])) {
+                $edit_id = $_GET['edit'];
+                $editQuery = "SELECT * FROM users WHERE id = $edit_id LIMIT 1";
+
+                $edit_query = mysqli_query($db_connection, $editQuery);
+                if (mysqli_num_rows($edit_query) > 0) {
+                    while ($fetch_edit = mysqli_fetch_assoc($edit_query)) {
+            ?>
+
+            <form action="" method="post" enctype="multipart/form-data">
+                <img src="uploaded_images/<?php echo $fetch_edit['userImage']; ?>" height="100" alt="">
+                <input type="hidden" name="user_id" value="<?php echo $fetch_edit['id']; ?>">
+                <input type="text" class="box" required name="user_name" value="<?php echo $fetch_edit['userName']; ?>">
+                <input type="email" class="box" required name="user_email"
+                    value="<?php echo $fetch_edit['userEmail']; ?>">
+                <input type="text" class="box" required name="user_phone"
+                    value="<?php echo $fetch_edit['userPhone']; ?>">
+                <input type="text" class="box" required name="user_about"
+                    value="<?php echo $fetch_edit['aboutUser']; ?>">
+                <input type="text" class="box" required name="job_title" value="<?php echo $fetch_edit['jobTitle']; ?>">
+                <input type="file" class="box" required name="user_image" accept="image/png, image/jpg, image/jpeg">
+                <input type="submit" value="update user info" name="update_friend" class="btn btn-primary text-white">
+                <input type="reset" value="cancel" id="close-edit" class="option-btn">
+            </form>
+
+            <?php
+                    };
+                };
+                echo "<script>document.querySelector('.edit-form-container').style.display = 'flex';</script>";
+            };
+            ?>
+            <script>
+            document.getElementById('close-edit').onclick = () => {
+                document.querySelector('.edit-form-container').style.display = 'none';
+                window.location.href = 'friendsList.php';
+            }
+            </script>
+        </section>
     </div>
 
 </body>
